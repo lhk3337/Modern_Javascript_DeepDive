@@ -176,3 +176,79 @@ let foo = 1; //전역 함수
 let 변수로 선언할 경우 변수 호이스팅이 발생하지 않는다면 위 예제는 전역 변수 foo의 값을 출력해야 한다.
 <br />
 하지만 let 변수도 여전히 호이스팅이 발생하기 때문에 참조 에러가 발생한다.
+<br />
+<br />
+
+## const
+
+상수를 선언하기 위해 사용
+<br />
+<br />
+
+### 선언과 초기화
+
+<br />
+
+**const로 선언한 변수는 선언과 동시에 초기화 해야 한다**
+
+```javascript
+const foo = 1;
+```
+
+그렇지 않으면 문법 에러 발생
+
+```javascript
+const foo; // SyntaxError: Missing initializer in const declaration
+```
+
+let과 같은 블록 레벨 스코프 가지며, 호이스팅이 발생하지 않는 것처럼 동작
+
+```javascript
+{
+  console.log(foo); // ReferenceError: Cannot access 'foo' before initialization
+  const foo = 1;
+  console.log(foo); // 1
+}
+
+console.log(foo); // // ReferenceError: foo is not defined
+// 블록 레벨 스코프를 가짐
+```
+
+<br />
+
+### 재할당 금지
+
+```javascript
+const foo = 1;
+foo = 2; //TypeError : Assignment to constant variable.
+```
+
+### 상수
+
+상수는 재할당이 금지된 변수, var나 let은 언제든지 재할당이 가능하지만 상수는 재할당이 금지된다.
+
+```javascript
+let preTaxPrice = 100;
+let afterTaxPrice = preTaxPrice + preTaxPrice * 0.1;
+//0.1이 무엇인지 알 수 없음(가독성 떨어짐)
+
+console.log(afterTaxPrice); // 110
+```
+
+```javascript
+const TAX_RATE = 0.1;
+let preTaxPrice = 100;
+let afterTaxPrice = preTaxPrice + preTaxPrice * TAX_RATE;
+// 의미론적으로 무엇을 의미하는지 명확하게 표현
+
+console.log(afterTaxPrice); // 110
+```
+
+<br />
+
+## var vs. let vs. const
+
+변수 선언에는 기본적으로 const를 사용하고, let은 재할당이 필요한 경우에 한정적으로 사용하는 것을 추천
+const 사용으로 재할당을 방지하기 떄문에 안전하다. 가급적이면 var 사용은 사용하지 않는다.
+
+[한번에 정리](https://backstreet-programmer.tistory.com/76)
